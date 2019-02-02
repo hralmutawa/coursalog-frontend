@@ -1,26 +1,37 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+
+//Routing
+import { Route, Redirect, Switch } from "react-router";
+
+//Components
+import Semesters from "./Components/Admin/Semesters";
+import SemesterDetail from "./Components/Admin/Semesters/SemesterDetail";
+import CourseDetail from "./Components/Common/Course/";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Switch>
+        <Route
+          path="/admin/semesters/:semesterId/courses/:courseId"
+          component={CourseDetail}
+        />
+        <Route path="/admin/semesters/:semesterId" component={SemesterDetail} />
+        <Route path="/admin/semesters" component={Semesters} />
+
+        <Route
+          path="/admin/student/:semesterId/courses/:courseId"
+          component={CourseDetail}
+        />
+        <Route
+          path="/student/semesters/:semesterId"
+          component={SemesterDetail}
+        />
+        <Route path="/student/semesters" component={Semesters} />
+        <Redirect to="/not-found" />
+      </Switch>
     );
   }
 }
